@@ -33,3 +33,35 @@ class RegisterTests(TestCase):
         response = self.client.post('/rejestracja/', data)
         self.assertEqual(response.status_code, 200)
         self.assertFalse(User.objects.filter(username='testuser').exists())
+
+class LoginTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='jan',
+            password='TrudneHaslo123!'
+        )
+        Profile.objects.create(user=self.user, role='user')
+
+    def test_login_page_loads(self):
+        response = self.client.get('/login/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Logowanie')
+
+    def test_login_with_correct_credentials(self):
+        response = self.client.post('/login/', {
+            'username': 'jan',
+            'password': 'TrudneHaslo123!',
+        })
+        self.assertEqual(response.status_code, 302)
+
+    def test_login_with_wrong_password(self):
+        response = self.client.post('/login/', {
+            'username': 'jan',
+            'password': 'ZleHaslo',
+        })
+        self.assertEqual(response.status_code, 200)
+
+    def test_logout(self):
+        self.client.login(username='jan', password='TrudneHaslo123!')
+        response = self.client.post('/logout/')
+        self.assertEqual(response.status_code, 302)

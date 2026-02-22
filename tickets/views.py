@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import RegisterForm
 from .models import Profile
+from django.shortcuts import redirect
 
 def register(request):
     if request.method == 'POST':
@@ -13,4 +14,7 @@ def register(request):
             return redirect('login')
     else:
         form = RegisterForm()
-    return render(request, 'registration/register.html', {'form': form})       
+    return render(request, 'registration/register.html', {'form': form})
+
+def home(request):
+    return redirect('ticket_list')
