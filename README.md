@@ -42,8 +42,7 @@ Projekt realizowany przyrostowo w ramach pracy dyplomowej. Aplikacja webowa do o
 
 W terminalu, w katalogu, w którym chcesz umieścić projekt:
 
-git clone https://github.com/TWOJ-LOGIN/Projekt-i-implementacja-systemu-do-zarzadzania-zgloszeniami-IT.git, 
-cd ".../Projekt-i-implementacja-systemu-do-zarzadzania-zgloszeniami-IT"
+git clone https://github.com/TWOJ-LOGIN/Projekt-i-implementacja-systemu-do-zarzadzania-zgloszeniami-IT.git
 
 ### 2. Wejście do katalogu projektu
 cd ".../Projekt-i-implementacja-systemu-do-zarzadzania-zgloszeniami-IT"
