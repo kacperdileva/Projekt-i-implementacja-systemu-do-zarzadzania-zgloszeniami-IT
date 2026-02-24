@@ -42,19 +42,22 @@ Projekt realizowany przyrostowo w ramach pracy dyplomowej. Aplikacja webowa do o
 
 W terminalu, w katalogu, w którym chcesz umieścić projekt:
 
-git clone https://github.com/TWOJ-LOGIN/Projekt-i-implementacja-systemu-do-zarzadzania-zgloszeniami-IT.git
+git clone https://github.com/TWOJ-LOGIN/Projekt-i-implementacja-systemu-do-zarzadzania-zgloszeniami-IT.git, 
 cd ".../Projekt-i-implementacja-systemu-do-zarzadzania-zgloszeniami-IT"
 
-### 2. Instalacja zależności (Django)
+### 2. Wejście do katalogu projektu
+cd ".../Projekt-i-implementacja-systemu-do-zarzadzania-zgloszeniami-IT"
+
+### 3. Instalacja zależności (Django)
 pip install -r requirements.txt
 
-### 3.Migracje bazy danych
+### 4.Migracje bazy danych
 python manage.py migrate (Windows) / python3 manage.py migrate (MacOS)
 
-### 4. Uruchomienie serwera deweloperskiego
+### 5. Uruchomienie serwera deweloperskiego
 python manage.py runserver (Windows) / python3 manage.py runserver (MacOS)
 
-### 5. Otwarcie aplikacji w przeglądarce
+### 6. Otwarcie aplikacji w przeglądarce
 Wejdź na adres:
 http://127.0.0.1:8000/
 
