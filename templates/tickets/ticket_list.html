@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Zgłoszenia - HelpDesk{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Zgłoszenia</h2>
+    <a href="{% url 'ticket_create' %}" class="btn btn-primary">Nowe zgłoszenie</a>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label">Szukaj</label>
+                <input type="text" name="q" class="form-control" placeholder="Szukaj po tytule..." value="{{ search_query }}">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Status</label>
+                <select name="status" class="form-select">
+                    <option value="">Wszystkie</option>
+                    {% for value, label in status_choices %}
+                        <option value="{{ value }}" {% if current_status == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Priorytet</label>
+                <select name="priority" class="form-select">
+                    <option value="">Wszystkie</option>
+                    {% for value, label in priority_choices %}
+                        <option value="{{ value }}" {% if current_priority == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-secondary w-100">Filtruj</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if tickets %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tytuł</th>
+            <th>Status</th>
+            <th>Priorytet</th>
+            <th>Autor</th>
+            <th>Data utworzenia</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ticket in tickets %}
+        <tr>
+            <td>{{ ticket.pk }}</td>
+            <td><a href="{% url 'ticket_detail' ticket.pk %}">{{ ticket.title }}</a></td>
+            <td>
+                {% if ticket.status == 'new' %}<span class="badge bg-primary">{{ ticket.get_status_display }}</span>
+                {% elif ticket.status == 'in_progress' %}<span class="badge bg-warning text-dark">{{ ticket.get_status_display }}</span>
+                {% elif ticket.status == 'resolved' %}<span class="badge bg-success">{{ ticket.get_status_display }}</span>
+                {% else %}<span class="badge bg-secondary">{{ ticket.get_status_display }}</span>{% endif %}
+            </td>
+            <td>
+                {% if ticket.priority == 'low' %}<span class="badge bg-info">{{ ticket.get_priority_display }}</span>
+                {% elif ticket.priority == 'medium' %}<span class="badge bg-primary">{{ ticket.get_priority_display }}</span>
+                {% elif ticket.priority == 'high' %}<span class="badge bg-warning text-dark">{{ ticket.get_priority_display }}</span>
+                {% else %}<span class="badge bg-danger">{{ ticket.get_priority_display }}</span>{% endif %}
+            </td>
+            <td>{{ ticket.created_by.username }}</td>
+            <td>{{ ticket.created_at|date:"d.m.Y H:i" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-muted">Brak zgłoszeń.</p>
+{% endif %}
+{% endblock %}

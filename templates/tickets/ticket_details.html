@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ ticket.title }} - HelpDesk{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2>{{ ticket.title }}</h2>
+        <p class="text-muted">Status: {{ ticket.get_status_display }} | Priorytet: {{ ticket.get_priority_display }}</p>
+        <p>{{ ticket.description }}</p>
+        <p><small>Utworzył: {{ ticket.created_by.username }} | {{ ticket.created_at|date:"d.m.Y H:i" }}</small></p>
+    </div>
+</div>
+<a href="{% url 'ticket_list' %}" class="btn btn-secondary mt-2">← Powrót do listy</a>
+{% endblock %}

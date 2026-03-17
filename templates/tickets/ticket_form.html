@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ form_title }} - HelpDesk{% endblock %}
+
+{% block content %}
+<h2>{{ form_title|default:"Nowe zgłoszenie" }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+    <a href="{% url 'ticket_list' %}" class="btn btn-secondary">Anuluj</a>
+</form>
+{% endblock %}
